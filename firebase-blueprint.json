@@ -1,0 +1,133 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "10–11-sinf o'quvchisining shaxsiy profili va tanlangan yo'nalish sozlamalari.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 200
+        },
+        "grade": {
+          "type": "string",
+          "enum": ["10", "11"],
+          "maxLength": 10
+        },
+        "favoriteSubjectId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "email", "grade", "favoriteSubjectId", "createdAt", "updatedAt"]
+    },
+    "TestResult": {
+      "title": "TestResult",
+      "description": "O'quvchining OTM demo testidan olgan natijasi.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "subjectId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "subjectName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "score": {
+          "type": "integer"
+        },
+        "totalQuestions": {
+          "type": "integer"
+        },
+        "percent": {
+          "type": "integer"
+        },
+        "dtmEquivalent": {
+          "type": "number"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["demo", "ai"],
+          "maxLength": 16
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["userId", "subjectId", "subjectName", "score", "totalQuestions", "percent", "dtmEquivalent", "mode", "createdAt"]
+    },
+    "SavedRoadmap": {
+      "title": "SavedRoadmap",
+      "description": "AI maslahatchi tomonidan tuzilgan va saqlangan shaxsiy kasb rejasi.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "summaryTitle": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "targetIncomeMillion": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["userId", "subject", "summaryTitle", "targetIncomeMillion", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "O'quvchining shaxsiy profili (PII himoyalangan, faqat egasiga ochiq)."
+    },
+    "/users/{userId}/testResults/{resultId}": {
+      "schema": { "$ref": "#/entities/TestResult" },
+      "description": "O'quvchining har bir fan bo'yicha ishlagan OTM demo test natijalari."
+    },
+    "/users/{userId}/roadmaps/{roadmapId}": {
+      "schema": { "$ref": "#/entities/SavedRoadmap" },
+      "description": "O'quvchi saqlagan shaxsiy 5 yillik kasb va daromad rejalari."
+    }
+  }
+}

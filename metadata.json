@@ -1,0 +1,6 @@
+{
+  "name": "KasbNoma — 10–11-sinflar uchun aqlli kasb va daromad yordamchisi",
+  "description": "10–11-sinf o'quvchilari uchun fanlardan kasb va daromadgacha yo'l xaritasi, Institut va Universitet taqqoslash, stavka/toifa oylik kalkulyatori, dolzarb vakansiyalar va AI kasb maslahatchisi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
